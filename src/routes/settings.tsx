@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { motion } from 'framer-motion'
+import { motion, type Variants } from 'framer-motion'
 import { useState } from 'react'
 import { 
   Wifi, Globe, Bell, LogOut, Download, CheckCircle2, XCircle, Loader2, 
@@ -14,11 +14,11 @@ export const Route = createFileRoute('/settings')({
   component: SettingsPage,
 })
 
-const container = {
+const container: Variants = {
   hidden: { opacity: 0 },
   show: { opacity: 1, transition: { staggerChildren: 0.06, delayChildren: 0.05 } }
 }
-const item = {
+const item: Variants = {
   hidden: { opacity: 0, y: 12 },
   show: { opacity: 1, y: 0, transition: { type: 'spring', damping: 25, stiffness: 300 } }
 }

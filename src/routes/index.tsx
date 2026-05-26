@@ -1,6 +1,6 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { useQuery } from '@tanstack/react-query'
-import { motion } from 'framer-motion'
+import { motion, type Variants } from 'framer-motion'
 import {
   Flame, TrendingUp, Activity, ArrowUpRight, CheckCircle2,
   Sparkles, Zap, Eye, Brain, Shield, Search, Cpu, AlertCircle, Loader2
@@ -12,7 +12,7 @@ export const Route = createFileRoute('/')({
   component: DashboardHome,
 })
 
-const container = {
+const container: Variants = {
   hidden: { opacity: 0 },
   show: {
     opacity: 1,
@@ -20,7 +20,7 @@ const container = {
   }
 }
 
-const item = {
+const item: Variants = {
   hidden: { opacity: 0, y: 16 },
   show: { opacity: 1, y: 0, transition: { type: 'spring', damping: 25, stiffness: 300 } }
 }
