@@ -22,7 +22,7 @@ const container: Variants = {
 
 const item: Variants = {
   hidden: { opacity: 0, y: 16 },
-  show: { opacity: 1, y: 0, transition: { type: 'spring', damping: 25, stiffness: 300 } }
+  show: { opacity: 1, y: 0, transition: { type: 'spring' as const, damping: 25, stiffness: 300 } }
 }
 
 const AGENTS = [

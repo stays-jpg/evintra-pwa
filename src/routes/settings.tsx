@@ -1,9 +1,9 @@
 import { createFileRoute } from '@tanstack/react-router'
 import { motion, type Variants } from 'framer-motion'
 import { useState } from 'react'
-import { 
-  Wifi, Globe, Bell, LogOut, Download, CheckCircle2, XCircle, Loader2, 
-  Server, Shield, Smartphone, ChevronRight, Info, Palette
+import {
+  Wifi, Globe, Bell, LogOut, Download, CheckCircle2, XCircle, Loader2,
+  Server, Shield, Smartphone, ChevronRight
 } from 'lucide-react'
 import { cn } from '../lib/utils'
 import { useServer } from '../store/server'
@@ -20,7 +20,7 @@ const container: Variants = {
 }
 const item: Variants = {
   hidden: { opacity: 0, y: 12 },
-  show: { opacity: 1, y: 0, transition: { type: 'spring', damping: 25, stiffness: 300 } }
+  show: { opacity: 1, y: 0, transition: { type: 'spring' as const, damping: 25, stiffness: 300 } }
 }
 
 function SettingsPage() {
