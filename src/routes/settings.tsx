@@ -28,7 +28,7 @@ function SettingsPage() {
   const { logout } = useAuth()
   const [mode, setMode] = useState<'local' | 'remote'>('local')
   const [localUrl, setLocalUrl] = useState('192.168.1.100:8000')
-  const [remoteUrl, setRemoteUrl] = useState('https://evintra.tu-dominio.com')
+  const [remoteUrl, setRemoteUrl] = useState('https://trowel-operate-laboring.ngrok-free.dev')
   const [connectionStatus, setConnectionStatus] = useState<'idle' | 'testing' | 'connected' | 'failed'>('idle')
   const [notifications, setNotifications] = useState({
     newLead: true,

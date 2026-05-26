@@ -8,6 +8,19 @@ export interface AgentStatus {
   lastActive?: string
 }
 
+export interface ContactData {
+  name?: string | null
+  email?: string | null
+  phone?: string | null
+  company?: string | null
+  role?: string | null
+  website?: string | null
+  linkedin_url?: string | null
+  address?: string | null
+  notes?: string | null
+  confidence?: number
+}
+
 export interface ChatMessage {
   role: 'user' | 'assistant'
   content: string
@@ -18,8 +31,13 @@ export interface ChatMessage {
 
 export interface ChatResponse {
   response: string
-  agent: string
+  agent_space: string
+  intent: string
+  thread_id: string
+  contacts?: ContactData[]
+  agent?: string
   timestamp: string
+  error?: string
 }
 
 /**
@@ -32,26 +50,22 @@ export async function fetchAgents(): Promise<AgentStatus[]> {
 }
 
 /**
- * Send a chat message to the orchestrator
+ * Send a chat message, optionally with base64 images
  */
-export async function sendChatMessage(message: string, images?: File[]): Promise<ChatResponse> {
-  if (images && images.length > 0) {
-    const formData = new FormData()
-    formData.append('message', message)
-    images.forEach(img => formData.append('images', img))
-    
-    const res = await apiClient('/api/v1/orchestrator/chat', {
-      method: 'POST',
-      headers: {}, // Let browser set content-type for FormData
-      body: formData,
-    })
-    if (!res.ok) throw new Error('Failed to send message')
-    return res.json()
+export async function sendChatMessage(
+  message: string,
+  images?: string[],   // data URLs (data:image/...;base64,xxxx) or raw base64
+): Promise<ChatResponse> {
+  const body: Record<string, unknown> = { message }
+
+  if (images?.length) {
+    // Strip "data:...;base64," prefix — backend expects raw base64
+    body.images = images.map(img => (img.includes(',') ? img.split(',')[1] : img))
   }
-  
+
   const res = await apiClient('/api/v1/orchestrator/chat', {
     method: 'POST',
-    body: JSON.stringify({ message }),
+    body: JSON.stringify(body),
   })
   if (!res.ok) throw new Error('Failed to send message')
   return res.json()
@@ -63,7 +77,7 @@ export async function sendChatMessage(message: string, images?: File[]): Promise
 export async function analyzeImage(file: File): Promise<Record<string, string>> {
   const formData = new FormData()
   formData.append('file', file)
-  
+
   const res = await apiClient('/api/v1/agents/analyze-image', {
     method: 'POST',
     headers: {},

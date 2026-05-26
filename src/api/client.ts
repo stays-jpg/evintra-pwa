@@ -11,7 +11,9 @@ export async function apiClient(endpoint: string, options: RequestInit = {}) {
 
   const headers = new Headers(options.headers)
   headers.set('Content-Type', 'application/json')
-  
+  // Bypass ngrok's browser-warning interstitial on free-tier tunnels
+  headers.set('ngrok-skip-browser-warning', 'true')
+
   if (token) {
     headers.set('Authorization', `Bearer ${token}`)
   }
@@ -34,9 +36,9 @@ export async function apiClient(endpoint: string, options: RequestInit = {}) {
  */
 export async function pingServer(url: string): Promise<boolean> {
   try {
-    const res = await fetch(`${url}/health`, { 
-      signal: AbortSignal.timeout(3000),
-      // Prevent CORS preflight issues for simple ping if necessary, but /health usually allows GET
+    const res = await fetch(`${url}/health`, {
+      signal: AbortSignal.timeout(5000),
+      headers: { 'ngrok-skip-browser-warning': 'true' },
     })
     return res.ok
   } catch {
