@@ -1,5 +1,5 @@
 import { createRootRoute, Outlet, Link, useRouterState, redirect } from '@tanstack/react-router'
-import { Home, MessageSquare, BarChart3, Users, Settings } from 'lucide-react'
+import { Home, MessageSquare, Sparkles, Users, Settings } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { useEffect } from 'react'
 import { cn } from '../lib/utils'
@@ -45,7 +45,7 @@ function RootComponent() {
 const NAV_ITEMS = [
   { to: '/' as const, icon: Home, label: 'Home' },
   { to: '/chat' as const, icon: MessageSquare, label: 'Chat' },
-  { to: '/pipeline' as const, icon: BarChart3, label: 'Pipeline' },
+  { to: '/prospector' as const, icon: Sparkles, label: 'Prospector' },
   { to: '/leads' as const, icon: Users, label: 'Leads' },
   { to: '/settings' as const, icon: Settings, label: 'Ajustes' },
 ]

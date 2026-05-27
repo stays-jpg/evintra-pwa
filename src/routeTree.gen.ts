@@ -10,10 +10,11 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as SettingsRouteImport } from './routes/settings'
+import { Route as ProspectorRouteImport } from './routes/prospector'
 import { Route as PipelineRouteImport } from './routes/pipeline'
+import { Route as LoginRouteImport } from './routes/login'
 import { Route as LeadsRouteImport } from './routes/leads'
 import { Route as ChatRouteImport } from './routes/chat'
-import { Route as LoginRouteImport } from './routes/login'
 import { Route as IndexRouteImport } from './routes/index'
 
 const SettingsRoute = SettingsRouteImport.update({
@@ -21,9 +22,19 @@ const SettingsRoute = SettingsRouteImport.update({
   path: '/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProspectorRoute = ProspectorRouteImport.update({
+  id: '/prospector',
+  path: '/prospector',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PipelineRoute = PipelineRouteImport.update({
   id: '/pipeline',
   path: '/pipeline',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const LeadsRoute = LeadsRouteImport.update({
@@ -34,11 +45,6 @@ const LeadsRoute = LeadsRouteImport.update({
 const ChatRoute = ChatRouteImport.update({
   id: '/chat',
   path: '/chat',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const LoginRoute = LoginRouteImport.update({
-  id: '/login',
-  path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IndexRoute = IndexRouteImport.update({
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/leads': typeof LeadsRoute
   '/login': typeof LoginRoute
   '/pipeline': typeof PipelineRoute
+  '/prospector': typeof ProspectorRoute
   '/settings': typeof SettingsRoute
 }
 export interface FileRoutesByTo {
@@ -61,6 +68,7 @@ export interface FileRoutesByTo {
   '/leads': typeof LeadsRoute
   '/login': typeof LoginRoute
   '/pipeline': typeof PipelineRoute
+  '/prospector': typeof ProspectorRoute
   '/settings': typeof SettingsRoute
 }
 export interface FileRoutesById {
@@ -70,14 +78,37 @@ export interface FileRoutesById {
   '/leads': typeof LeadsRoute
   '/login': typeof LoginRoute
   '/pipeline': typeof PipelineRoute
+  '/prospector': typeof ProspectorRoute
   '/settings': typeof SettingsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/chat' | '/leads' | '/login' | '/pipeline' | '/settings'
+  fullPaths:
+    | '/'
+    | '/chat'
+    | '/leads'
+    | '/login'
+    | '/pipeline'
+    | '/prospector'
+    | '/settings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/chat' | '/leads' | '/login' | '/pipeline' | '/settings'
-  id: '__root__' | '/' | '/chat' | '/leads' | '/login' | '/pipeline' | '/settings'
+  to:
+    | '/'
+    | '/chat'
+    | '/leads'
+    | '/login'
+    | '/pipeline'
+    | '/prospector'
+    | '/settings'
+  id:
+    | '__root__'
+    | '/'
+    | '/chat'
+    | '/leads'
+    | '/login'
+    | '/pipeline'
+    | '/prospector'
+    | '/settings'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -86,6 +117,7 @@ export interface RootRouteChildren {
   LeadsRoute: typeof LeadsRoute
   LoginRoute: typeof LoginRoute
   PipelineRoute: typeof PipelineRoute
+  ProspectorRoute: typeof ProspectorRoute
   SettingsRoute: typeof SettingsRoute
 }
 
@@ -98,6 +130,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/prospector': {
+      id: '/prospector'
+      path: '/prospector'
+      fullPath: '/prospector'
+      preLoaderRoute: typeof ProspectorRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/pipeline': {
       id: '/pipeline'
       path: '/pipeline'
@@ -105,18 +144,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PipelineRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/leads': {
-      id: '/leads'
-      path: '/leads'
-      fullPath: '/leads'
-      preLoaderRoute: typeof LeadsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/login': {
       id: '/login'
       path: '/login'
       fullPath: '/login'
       preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/leads': {
+      id: '/leads'
+      path: '/leads'
+      fullPath: '/leads'
+      preLoaderRoute: typeof LeadsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/chat': {
@@ -142,6 +181,7 @@ const rootRouteChildren: RootRouteChildren = {
   LeadsRoute: LeadsRoute,
   LoginRoute: LoginRoute,
   PipelineRoute: PipelineRoute,
+  ProspectorRoute: ProspectorRoute,
   SettingsRoute: SettingsRoute,
 }
 export const routeTree = rootRouteImport
